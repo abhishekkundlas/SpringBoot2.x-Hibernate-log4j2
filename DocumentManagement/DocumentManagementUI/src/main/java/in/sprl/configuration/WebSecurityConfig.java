@@ -55,17 +55,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		httpSecurity.csrf().disable()
 		// Don't authenticate this particular request
 		.authorizeRequests()
-		.antMatchers("/authenticate").permitAll()		
-//		.antMatchers("/",
-//				"/favicon.ico",
-//				"/**/*.png",
-//				"/**/*.gif",
-//				"/**/*.svg",
-//				"/**/*.jpg",
-//				"/**/*.html",
-//				"/**/*.css",
-//				"/**/*.js")
-//		.permitAll()
+		.antMatchers("/authenticate").permitAll()	
+		.antMatchers("/swagger-resources/**").permitAll() // To access swagger UI
+		.antMatchers("/v2/api-docs").permitAll()          // swagger API doc
+		.antMatchers("/",
+				"/favicon.ico",
+				"/**/*.png",
+				"/**/*.gif",
+				"/**/*.svg",
+				"/**/*.jpg",
+				"/**/*.html",
+				"/**/*.css",
+				"/**/*.js")
+		.permitAll()
 		// all other requests need to be authenticated
 		.anyRequest().authenticated()
 		.and()

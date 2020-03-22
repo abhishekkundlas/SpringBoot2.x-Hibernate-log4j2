@@ -25,60 +25,85 @@ public class UserController {
 	UserService userService;	
 
 	@GetMapping("/users")
-	public ResponseEntity<String> getUserList() {
+	public ResponseEntity<Object> getUserList() {
 		LOGGER.info("UserController getUserList");
+		ResponseEntity<Object> responseEntity = null;
 		try {
-			return new ResponseEntity<>(JsonUtil.convertJavaObjectToJson(userService.getUserList()), HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			responseEntity =  new ResponseEntity<>(JsonUtil.convertJavaObjectToJson(userService.getUserList()), HttpStatus.OK);
+		}  catch (Exception exception) { 
+			LOGGER.error(exception.getMessage(), exception);
+			responseEntity = new ResponseEntity<>(new ExceptionJsonInfo(exception), HttpStatus.INTERNAL_SERVER_ERROR);			
 		}
+		return responseEntity;
 	} 
 
 	@GetMapping("/users/{id}")
-	public ResponseEntity<String> getUserInformation(@PathVariable Long id) {
+	public ResponseEntity<Object> getUserInformation(@PathVariable Long id) {
 		LOGGER.info("UserController getUserInformation");
+		ResponseEntity<Object> responseEntity = null;
 		try {
-			return new ResponseEntity<>(JsonUtil.convertJavaObjectToJson(userService.getUserInformation(id)), HttpStatus.OK);
-		} catch (Exception e) { 
-			return new ResponseEntity<>(new ExceptionJsonInfo(exception), httpStatus.);
+			responseEntity = new ResponseEntity<>(JsonUtil.convertJavaObjectToJson(userService.getUserInformation(id)), HttpStatus.OK);
+		} catch (Exception exception) { 
+			LOGGER.error(exception.getMessage(), exception);
+			responseEntity = new ResponseEntity<>(new ExceptionJsonInfo(exception), HttpStatus.INTERNAL_SERVER_ERROR);			
 		}
+		return responseEntity;
+	} 
+	
+	
+	@GetMapping("/users/findByUserName/{username}")
+	public ResponseEntity<Object> findByUserName(@PathVariable String username) {
+		LOGGER.info("UserController findUserInformation");
+		ResponseEntity<Object> responseEntity = null;
+		try {
+			responseEntity = new ResponseEntity<>(userService.findByUserName(username), HttpStatus.OK);
+		} catch (Exception exception) { 
+			LOGGER.error(exception.getMessage(), exception);
+			responseEntity = new ResponseEntity<>(new ExceptionJsonInfo(exception), HttpStatus.INTERNAL_SERVER_ERROR);			
+		}
+		return responseEntity;
 	} 
 
 
 
 	@PostMapping("/user")
-	public ResponseEntity<String> createOrSaveUser(@RequestBody User newUser) {
+	public ResponseEntity<Object> createOrSaveUser(@RequestBody User newUser) {
 		LOGGER.info("UserController createOrSaveUser");
+		ResponseEntity<Object> responseEntity = null;
 		try {
-			return new ResponseEntity<>(JsonUtil.convertJavaObjectToJson(userService.createOrSaveUser(newUser)), HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}      
+			responseEntity =  new ResponseEntity<>(JsonUtil.convertJavaObjectToJson(userService.createOrSaveUser(newUser)), HttpStatus.OK);
+		} catch (Exception exception) { 
+			LOGGER.error(exception.getMessage(), exception);
+			responseEntity = new ResponseEntity<>(new ExceptionJsonInfo(exception), HttpStatus.INTERNAL_SERVER_ERROR);			
+		}
+		return responseEntity;   
 	}
 
 	@DeleteMapping("/users/{id}")
-	public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+	public ResponseEntity<Object> deleteUser(@PathVariable Long id) {
 		LOGGER.info("UserController deleteUser");
+		ResponseEntity<Object> responseEntity = null;
 		try {
 			userService.deleteUser(id);
-			return new ResponseEntity<>("User Deleted", HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		} 
+			responseEntity =  new ResponseEntity<>("User Deleted", HttpStatus.OK);
+		} catch (Exception exception) { 
+			LOGGER.error(exception.getMessage(), exception);
+			responseEntity = new ResponseEntity<>(new ExceptionJsonInfo(exception), HttpStatus.INTERNAL_SERVER_ERROR);			
+		}
+		return responseEntity;   
 	}
 
 	@PutMapping("/users/{id}")
-	public ResponseEntity<String> updateUser(@RequestBody User newUser, @PathVariable Long id) {
+	public ResponseEntity<Object> updateUser(@RequestBody User newUser, @PathVariable Long id) {
 		LOGGER.info("UserController updateUser");
+		ResponseEntity<Object> responseEntity = null;
 		try {
 			return new ResponseEntity<>(JsonUtil.convertJavaObjectToJson(userService.updateUser(newUser, id)), HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		} 
+		}catch (Exception exception) { 
+			LOGGER.error(exception.getMessage(), exception);
+			responseEntity = new ResponseEntity<>(new ExceptionJsonInfo(exception), HttpStatus.INTERNAL_SERVER_ERROR);			
+		}
+		return responseEntity; 
 	}
 
 }

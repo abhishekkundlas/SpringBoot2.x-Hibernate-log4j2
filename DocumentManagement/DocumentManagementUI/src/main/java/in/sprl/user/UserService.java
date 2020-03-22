@@ -12,4 +12,5 @@ public interface UserService {
 	public UserEntity createOrSaveUser(User user);
 	public void deleteUser(Long id) ;
 	public UserEntity updateUser(User user, Long id);	
+	public UserEntity findByUserName(String username);
 }

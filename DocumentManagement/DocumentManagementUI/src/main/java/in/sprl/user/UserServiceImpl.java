@@ -2,9 +2,7 @@ package in.sprl.user;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,15 +14,11 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
-	BCryptPasswordEncoder bCryptPasswordEncoder;
-
-
 
 	public UserEntity getUserInformation(Long id) {
 		return userRepository.findById(id).get();
 	}
-
+	
 	public List<UserEntity> getUserList() {
 		return userRepository.findAll();
 	}
@@ -53,5 +47,10 @@ public class UserServiceImpl implements UserService {
 					return userRepository.save(userEntity); 
 				})
 				.orElseGet(UserEntity :: new);
+	}
+
+	@Override
+	public UserEntity findByUserName(String username) {
+		return userRepository.findByUserNameABH(username);		
 	}	
 }
