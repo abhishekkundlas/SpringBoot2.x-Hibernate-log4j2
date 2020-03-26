@@ -4,15 +4,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
-public class DocumentManagementUiApplication {
-	
-	
+public class DocumentManagementUiApplication {	
 	
 	private static final Logger LOGGER = LogManager.getLogger(DocumentManagementUiApplication.class);	 
-	static BCryptPasswordEncoder bCryptPasswordEncoder;
 	public static void main(String[] args) {
 		/*
 		 * LOGGER.trace("This is a trace log example");
