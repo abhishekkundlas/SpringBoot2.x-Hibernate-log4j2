@@ -30,7 +30,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Se
 	
 	@Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-		ExceptionJsonInfo exceptionJsonInfo = new ExceptionJsonInfo("Unauthorised", 
+		ExceptionJsonInfo exceptionJsonInfo = new ExceptionJsonInfo("Unauthorised Access", 
 					HttpStatus.UNAUTHORIZED.value(), 
 					HttpStatus.UNAUTHORIZED.name());
 		OutputStream out = httpServletResponse.getOutputStream();

@@ -16,9 +16,9 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 
 	public UserEntity getUserInformation(Long id) {
-		return userRepository.findById(id).get();
+		return userRepository.findById(id).orElse(new UserEntity()); 
 	}
-	
+
 	public List<UserEntity> getUserList() {
 		return userRepository.findAll();
 	}

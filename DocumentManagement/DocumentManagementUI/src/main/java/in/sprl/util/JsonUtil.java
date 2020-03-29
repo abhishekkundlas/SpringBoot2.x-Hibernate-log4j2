@@ -11,6 +11,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class JsonUtil {
 	private static final Logger LOGGER = LogManager.getLogger(JsonUtil.class);	
 
+	private JsonUtil() {
+		throw new IllegalStateException("Utility class");
+	}
+	
 	public static String convertJavaObjectToJson(Object object) {
 		ObjectMapper objectMapper = new ObjectMapper(); 
 		String jsonString = null;
